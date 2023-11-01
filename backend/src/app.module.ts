@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './modules/auth/auth.module';
+import { DatabaseModule } from './shared/database/database.module';
+import { AuthGuard } from './modules/auth/auth.guard';
+import { DocumentsModule } from './modules/documents/documents.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [AuthModule, DatabaseModule, DocumentsModule],
+  controllers: [],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useValue: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
