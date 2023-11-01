@@ -17,7 +17,6 @@ import { DocumentDto } from './dto/document.dto';
 import { diskStorage } from 'multer';
 import { getFilename } from 'src/shared/utils/getFilename';
 
-@IsPublic()
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
