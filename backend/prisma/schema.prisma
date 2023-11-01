@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file
 
 generator client {
   provider = "prisma-client-js"
@@ -20,14 +19,25 @@ model User {
   @@map("users")
 }
 
+model Author {
+  id         String    @id @default(uuid()) @db.Uuid
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  documentId String?   @db.Uuid
+  document   Document? @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("authors")
+}
+
 model Document {
   id        String   @id @default(uuid()) @db.Uuid
   title     String
   keywords  String[]
-  author    String[]
   path      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  author    Author[]
 
   @@map("documents")
 }
