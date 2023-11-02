@@ -6,10 +6,13 @@ declare module 'styled-components' {
       default: string;
       light: string;
       dark: string;
-    },
+    };
     red: {
-      default: string;
       error: string;
-    }
+    };
+    blue: {
+      default: string;
+      light: string;
+    };
   }
 }

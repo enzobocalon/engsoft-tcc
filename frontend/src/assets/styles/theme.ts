@@ -2,10 +2,13 @@ export default {
   white: {
     default: '#FBFCFE',
     light: '#FFFFFF',
-    dark: '#F3F5F7'
+    dark: '#F3F5F7',
   },
   red: {
-    default: '#DF0E0E',
-    error: '#EB5757'
-  }
-}
+    error: '#EB5757',
+  },
+  blue: {
+    default: '#064076',
+    light: '#075093',
+  },
+};
