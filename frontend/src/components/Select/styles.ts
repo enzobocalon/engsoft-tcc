@@ -18,6 +18,9 @@ export const Container = styled.div`
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 `;
 

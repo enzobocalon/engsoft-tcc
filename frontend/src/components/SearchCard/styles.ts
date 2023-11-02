@@ -18,5 +18,6 @@ export const Info = styled.div`
     display: block;
     margin-top: 4px;
     font-size: 14px;
+    font-weight: normal;
   }
 `;

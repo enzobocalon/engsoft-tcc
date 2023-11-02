@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as S from './styles';
 import { AnimatePresence } from 'framer-motion';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 
 export default function Select() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,10 @@ export default function Select() {
 
   return (
     <S.Container onClick={handleToggle}>
-      <label>Palavras-Chave</label>
+      <label>
+        Palavras-Chave
+        <ChevronDownIcon />
+      </label>
 
       <AnimatePresence>
         {isOpen && (
