@@ -32,13 +32,14 @@ export class DocumentsController {
       }),
       fileFilter: (req, file, cb) => {
         if (!file.originalname.match(/\.(pdf)$/)) {
-          return cb(new Error('Only PDF files are allowed!'), false);
+          return cb(new Error('Somente arquivos PDF são aceitos.'), false);
         }
         cb(null, true);
       },
     }),
   )
   async createDocument(
+    @ActiveUserId() userId: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -49,7 +50,6 @@ export class DocumentsController {
       }),
     )
     file: Express.Multer.File,
-    @ActiveUserId() userId: string,
     @Body() data: DocumentDto,
   ) {
     return this.documentsService.create(userId, file, data);

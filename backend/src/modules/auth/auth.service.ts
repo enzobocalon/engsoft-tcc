@@ -36,9 +36,13 @@ export class AuthService implements OnModuleInit {
       },
     });
 
+    if (!user) {
+      throw new UnauthorizedException('Credenciais inválidas');
+    }
+
     const isPasswordValid = await compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const accessToken = await this.generateToken(user.id);
