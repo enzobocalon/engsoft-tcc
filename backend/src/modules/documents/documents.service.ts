@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DocumentsRepository } from 'src/shared/database/repositories/documents.repositories';
 import { DocumentDto } from './dto/document.dto';
-import { AuthorRepository } from 'src/shared/database/repositories/author.repositories';
+import { AuthorRepository } from 'src/shared/database/repositories/authors.repositories';
 
 @Injectable()
 export class DocumentsService {
@@ -45,7 +45,7 @@ export class DocumentsService {
     return documents;
   }
 
-  async create(file: Express.Multer.File, data: DocumentDto) {
+  async create(userId: string, file: Express.Multer.File, data: DocumentDto) {
     const { author, keywords, title } = data;
 
     const keywordsArray: string[] = JSON.parse(keywords);

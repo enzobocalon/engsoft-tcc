@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { SigninDto } from './dto/signin.dto';
 import { hash, compare } from 'bcryptjs';
-import { UsersRepository } from 'src/shared/database/repositories/user.repositories';
+import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 
 @Injectable()
 export class AuthService implements OnModuleInit {

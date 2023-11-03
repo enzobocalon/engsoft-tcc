@@ -5,6 +5,7 @@ import { DatabaseModule } from './shared/database/database.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { join } from 'path';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { join } from 'path';
     AuthModule,
     DatabaseModule,
     DocumentsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

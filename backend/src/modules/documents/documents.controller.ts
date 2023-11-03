@@ -16,6 +16,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { DocumentDto } from './dto/document.dto';
 import { diskStorage } from 'multer';
 import { getFilename } from 'src/shared/utils/getFilename';
+import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 
 @Controller('documents')
 export class DocumentsController {
@@ -48,9 +49,10 @@ export class DocumentsController {
       }),
     )
     file: Express.Multer.File,
+    @ActiveUserId() userId: string,
     @Body() data: DocumentDto,
   ) {
-    return this.documentsService.create(file, data);
+    return this.documentsService.create(userId, file, data);
   }
 
   @IsPublic()
