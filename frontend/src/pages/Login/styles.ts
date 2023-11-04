@@ -23,24 +23,25 @@ export const Form = styled.form`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 0.5rem;
-
-  > div {
-    display: flex;
-    padding: 0.25rem 0.5rem;
-    align-items: center;
-    border: 1px solid #d3d3d3;
-    margin-block: 0.5rem;
-    width: 100%;
-    border-radius: 0.5rem;
-  }
 
   button {
     width: 100%;
     border-radius: 0.5rem;
     padding: 1rem 0.5rem;
   }
+`;
+
+export const DataContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  align-items: center;
+  border: 1px solid #d3d3d3;
+  margin-block: 0.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
 `;

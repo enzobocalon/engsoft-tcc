@@ -1,26 +1,36 @@
 import { LockClosedIcon, PersonIcon } from '@radix-ui/react-icons';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { Error } from '../../components/Error';
 import logo from '../../assets/images/logo-branca-2.png';
 import * as S from './styles';
+import { useLoginController } from './useLoginController';
 
 export default function Login() {
+  const { errors, handleSubmit, register } = useLoginController();
   return (
     <S.Container>
       <img src={logo} />
       <S.Form>
         <label>Nome de usuário</label>
-        <div>
-          <LockClosedIcon />
-          <Input placeholder="Seu usuário..." />
-        </div>
-        <label>Senha</label>
-        <div>
+        <S.DataContainer>
           <PersonIcon />
-          <Input placeholder="Sua senha..." />
-        </div>
-
-        <Button>Entrar</Button>
+          <Input {...register('name')} placeholder="Seu usuário..." />
+        </S.DataContainer>
+        {errors.name && <Error message={errors.name.message} />}
+        <label>Senha</label>
+        <S.DataContainer>
+          <LockClosedIcon />
+          <Input
+            {...register('password')}
+            type="password"
+            placeholder="Sua senha..."
+          />
+        </S.DataContainer>
+        {errors.password && <Error message={errors.password.message} />}
+        <Button type="submit" onClick={handleSubmit}>
+          Entrar
+        </Button>
       </S.Form>
     </S.Container>
   );
