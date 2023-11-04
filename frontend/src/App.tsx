@@ -5,7 +5,7 @@ import { Router } from './router';
 import { AuthProvider } from './context/AuthContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import { DashboardProvider } from './context/DocumentContext';
+import { DocumentProvider } from './context/DocumentContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,10 +21,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <DashboardProvider>
+          <DocumentProvider>
             <Router />
             <GlobalStyle />
-          </DashboardProvider>
+          </DocumentProvider>
         </AuthProvider>
         <Toaster />
       </QueryClientProvider>

@@ -8,7 +8,7 @@ interface DocumentContextValue {
 
 export const DocumentContext = createContext({} as DocumentContextValue);
 
-export function DashboardProvider({ children }: { children: ReactNode }) {
+export function DocumentProvider({ children }: { children: ReactNode }) {
   const [document, setDocument] = useState<IDocument | null>(null);
 
   return (
