@@ -13,4 +13,8 @@ export class DocumentsRepository {
   findMany(findMany: Prisma.DocumentFindManyArgs) {
     return this.prismaService.document.findMany(findMany);
   }
+
+  count(count: Prisma.DocumentCountArgs) {
+    return this.prismaService.document.count(count);
+  }
 }

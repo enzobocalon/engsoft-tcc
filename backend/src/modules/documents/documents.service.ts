@@ -1,9 +1,14 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DocumentsRepository } from 'src/shared/database/repositories/documents.repositories';
 import { DocumentDto } from './dto/document.dto';
 import { AuthorRepository } from 'src/shared/database/repositories/authors.repositories';
 
+const PAGE_SIZE = 10;
 @Injectable()
 export class DocumentsService {
   constructor(
@@ -11,11 +16,12 @@ export class DocumentsService {
     private readonly authorsRepo: AuthorRepository,
   ) {}
 
-  async getByFilter(keywords?: string[], author?: string) {
+  async getByFilter(keywords?: string[], author?: string, page?: string) {
     if (!keywords && !author) {
       throw new BadRequestException('No filter provided');
     }
 
+    const skip = page ? (parseInt(page) - 1) * PAGE_SIZE : 0;
     const filterOptions: Prisma.DocumentWhereInput = {};
 
     if (keywords && keywords.length > 0) {
@@ -35,14 +41,30 @@ export class DocumentsService {
       };
     }
 
-    const documents = await this.documentsRepo.findMany({
-      where: filterOptions,
-      include: {
-        author: true,
-      },
-    });
+    try {
+      const documents = await this.documentsRepo.findMany({
+        take: PAGE_SIZE,
+        skip,
+        where: filterOptions,
+        include: {
+          author: true,
+        },
+      });
 
-    return documents;
+      const totalCount = await this.documentsRepo.count({
+        where: filterOptions,
+      });
+
+      return {
+        documents,
+        pages: {
+          total: totalCount,
+          hasNext: skip + PAGE_SIZE < totalCount,
+        },
+      };
+    } catch {
+      throw new NotFoundException('Nenhum documento encontrado');
+    }
   }
 
   async create(userId: string, file: Express.Multer.File, data: DocumentDto) {

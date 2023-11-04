@@ -60,12 +60,13 @@ export class DocumentsController {
   async listDocument(
     @Query('keywords') keywords: string[],
     @Query('author') author: string,
+    @Query('page') page?: string,
   ) {
     const keywordArray = keywords
       ? Array.isArray(keywords)
         ? keywords.map((key) => key.toLowerCase())
         : [(keywords as string).toLowerCase()]
       : [];
-    return this.documentsService.getByFilter(keywordArray, author);
+    return this.documentsService.getByFilter(keywordArray, author, page);
   }
 }
