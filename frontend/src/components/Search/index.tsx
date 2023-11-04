@@ -3,21 +3,42 @@ import { Input } from '../Input';
 import * as S from './styles';
 import Select from '../Select';
 import SearchCard from '../SearchCard';
+import { useSearchController } from './useSearchController';
 
 export default function Search() {
+  const { data, handleSearch, currentOption, handleOption, searchRef } =
+    useSearchController();
   return (
     <S.Container>
       <S.SearchInputContainer>
-        <Select />
+        <Select selection={currentOption} onSelect={handleOption} />
         <S.InputContainer>
           <MagnifyingGlassIcon />
-          <Input placeholder="Pesquisar por temas. Ex: segurança, informação" />
+          <Input
+            ref={searchRef}
+            onKeyDown={handleSearch}
+            placeholder="Pesquisar por temas. Ex: segurança, informação"
+          />
         </S.InputContainer>
       </S.SearchInputContainer>
 
       <S.SearchGroup>
         <p>Resultados</p>
-        <SearchCard />
+        {data ? (
+          data.length > 0 ? (
+            data.map((item) => <SearchCard key={item.id} data={item} />)
+          ) : (
+            <div className="errorsContainer">
+              <S.Errors>
+                Não foi encontrado nenhum resultado para sua busca.
+              </S.Errors>
+            </div>
+          )
+        ) : (
+          <div className="errorsContainer">
+            <S.Errors>Os resultados da busca serão mostrados aqui...</S.Errors>
+          </div>
+        )}
       </S.SearchGroup>
     </S.Container>
   );

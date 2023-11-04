@@ -38,4 +38,17 @@ export const SearchGroup = styled.div`
   background-color: ${({ theme }) => theme.white.dark};
   padding: 1rem;
   font-weight: 500;
+
+  > .errorsContainer {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const Errors = styled.div`
+  font-weight: normal;
+  font-size: 14px;
+  color: #a1a1a1;
 `;

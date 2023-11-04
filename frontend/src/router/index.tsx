@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import IndexPage from '../pages/Index';
 import Login from '../pages/Login';
-import AuthGuard from './AuthGuard';
 import NewDocument from '../pages/NewDocument';
+import AuthGuard from './AuthGuard';
 
 export function Router() {
   return (
@@ -14,7 +14,7 @@ export function Router() {
             <Route path="/login" element={<Login />} />
           </Route>
 
-          <Route element={<AuthGuard isPrivate={true} />}>
+          <Route element={<AuthGuard isPrivate />}>
             <Route path="/new" element={<NewDocument />} />
           </Route>
         </Route>

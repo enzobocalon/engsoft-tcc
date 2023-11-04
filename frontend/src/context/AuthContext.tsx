@@ -38,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signin = useCallback((accessToken: string) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
     setSignedIn(true);
+    toast.success('Bem-vindo!');
   }, []);
 
   const signout = useCallback(() => {

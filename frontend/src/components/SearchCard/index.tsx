@@ -1,13 +1,24 @@
+import { IDocument } from '../../types/Document';
 import * as S from './styles';
+import { useSearchCardController } from './useSearchCardController';
 
-export default function SearchCard() {
+interface SearchCardProps {
+  data: IDocument;
+}
+
+export default function SearchCard({ data }: SearchCardProps) {
+  const { formatKeywords, handleClick } = useSearchCardController(data);
   return (
-    <S.Container>
-      <h2>Titulo</h2>
-      <p>Autores</p>
+    <S.Container onClick={handleClick}>
+      <h3>{data.title}</h3>
+      <S.Authors>
+        {data.author.map((item) => (
+          <p key={item.id}>{item.name}</p>
+        ))}
+      </S.Authors>
       <S.Info style={{ marginBlock: '10px' }}>
         <p>Palavras Chaves:</p>
-        <span>Palavra 1, Palavra 2</span>
+        <span>{formatKeywords()}</span>
       </S.Info>
     </S.Container>
   );

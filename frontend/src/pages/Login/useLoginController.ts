@@ -6,7 +6,6 @@ import { z } from 'zod';
 import { authService } from '../../services/auth';
 import { SigninParams } from '../../services/auth/signin';
 import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   name: z.string().min(1, {
@@ -28,7 +27,6 @@ export function useLoginController() {
     resolver: zodResolver(schema),
   });
 
-  const navigate = useNavigate();
   const { signin } = useAuth();
 
   const { isPending, mutateAsync } = useMutation({
@@ -42,8 +40,6 @@ export function useLoginController() {
     try {
       const { accessToken } = await mutateAsync(data);
       signin(accessToken);
-      navigate('/');
-      toast.success('Login realizado com sucesso!');
     } catch {
       toast.error('Verifique suas credenciais e tente novamente.');
     }

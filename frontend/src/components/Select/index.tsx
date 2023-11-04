@@ -1,21 +1,21 @@
-import { useState } from 'react';
 import * as S from './styles';
 import { AnimatePresence } from 'framer-motion';
-import { useClickOutside } from '../../hooks/useClickOutside';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { useSelectController } from './useSelectController';
 
-export default function Select() {
-  const [isOpen, setIsOpen] = useState(false);
-  function handleToggle() {
-    setIsOpen((prev) => !prev);
-  }
+interface SelectProps {
+  selection: number;
+  onSelect: (selection: number) => void;
+}
 
-  const ref = useClickOutside<HTMLDivElement>(handleToggle);
+export default function Select({ selection, onSelect }: SelectProps) {
+  const { isOpen, handleSelection, selectedOption, handleToggle, ref } =
+    useSelectController(selection, onSelect);
 
   return (
     <S.Container onClick={handleToggle}>
       <label>
-        Palavras-Chave
+        {selectedOption}
         <ChevronDownIcon />
       </label>
 
@@ -29,8 +29,10 @@ export default function Select() {
             onClick={(e) => e.stopPropagation()}
             ref={ref}
           >
-            <S.Options>Palavras-Chave</S.Options>
-            <S.Options>Autores</S.Options>
+            <S.Options onClick={() => handleSelection(0)}>
+              Palavras-Chave
+            </S.Options>
+            <S.Options onClick={() => handleSelection(1)}>Autores</S.Options>
           </S.OptionsContainer>
         )}
       </AnimatePresence>

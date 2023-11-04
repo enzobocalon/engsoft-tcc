@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 export function useCardController() {
-  const { user } = useAuth();
+  const { user, signout } = useAuth();
   const navigate = useNavigate();
 
   function navigateToNewFile() {
@@ -12,5 +12,6 @@ export function useCardController() {
   return {
     user,
     navigateToNewFile,
+    signout,
   };
 }
