@@ -1,1 +1,0 @@
-Versão temporária para trabalho universitário
