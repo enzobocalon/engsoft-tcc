@@ -25,8 +25,10 @@ export default function Search() {
       <S.SearchGroup>
         <p>Resultados</p>
         {data ? (
-          data.length > 0 ? (
-            data.map((item) => <SearchCard key={item.id} data={item} />)
+          data.documents.length > 0 ? (
+            data.documents.map((item) => (
+              <SearchCard key={item.id} data={item} />
+            ))
           ) : (
             <div className="errorsContainer">
               <S.Errors>

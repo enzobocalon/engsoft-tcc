@@ -14,10 +14,10 @@ export default function Select({ selection, onSelect }: SelectProps) {
 
   return (
     <S.Container onClick={handleToggle}>
-      <label>
-        {selectedOption}
+      <S.SelectedContainer>
+        <label>{selectedOption}</label>
         <ChevronDownIcon />
-      </label>
+      </S.SelectedContainer>
 
       <AnimatePresence>
         {isOpen && (

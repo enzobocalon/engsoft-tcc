@@ -11,16 +11,25 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+`;
+
+export const SelectedContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 
   label {
     letter-spacing: -0.065px;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    margin: 0 auto;
+  }
+
+  svg {
+    margin-right: 0.5rem;
   }
 `;
 

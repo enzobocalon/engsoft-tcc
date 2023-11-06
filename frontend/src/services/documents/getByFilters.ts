@@ -1,6 +1,14 @@
 import { IDocument } from '../../types/Document';
 import { httpClient } from '../httpClient';
 
+interface DocumentResponse {
+  documents: IDocument[];
+  pages: {
+    total: number;
+    hasNext: boolean;
+  };
+}
+
 export async function getByFilters(filter: string, queries: string) {
   const transformedString = queries.replace(/\s+/g, '');
 
@@ -12,6 +20,6 @@ export async function getByFilters(filter: string, queries: string) {
     }`;
   }
 
-  const { data } = await httpClient.get<IDocument[]>(`/documents?${s}`);
+  const { data } = await httpClient.get<DocumentResponse>(`/documents?${s}`);
   return data;
 }
