@@ -42,6 +42,11 @@ export const SearchInputContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 export const InputContainer = styled.div`

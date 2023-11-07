@@ -11,6 +11,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const SelectedContainer = styled.div`
