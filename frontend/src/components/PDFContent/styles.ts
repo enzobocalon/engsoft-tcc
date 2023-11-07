@@ -9,6 +9,10 @@ export const Container = styled.div`
   > p {
     margin-block: 0.25rem;
     font-weight: 500;
+
+    > strong {
+      display: block;
+    }
   }
 
   > iframe {

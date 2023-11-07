@@ -9,6 +9,7 @@ interface TagsProps {
   tags: ITags[];
   setTags: React.Dispatch<React.SetStateAction<ITags[]>>;
   placeholder: string;
+  id: string;
 }
 
 export default function Tags({
@@ -16,6 +17,7 @@ export default function Tags({
   setTags,
   description,
   placeholder,
+  id,
 }: TagsProps) {
   const { input, handleChange, handleKeydown, handleDelete, handleKeyUp } =
     useTagsController({
@@ -38,6 +40,7 @@ export default function Tags({
           onKeyDown={handleKeydown}
           onKeyUp={handleKeyUp}
           placeholder={placeholder}
+          id={id}
         />
       </S.Wrapper>
     </S.Container>

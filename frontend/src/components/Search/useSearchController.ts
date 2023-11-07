@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export function useSearchController() {
   const [currentOption, setCurrentOption] = useState(0);
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const searchRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,14 +25,19 @@ export function useSearchController() {
     }
   }
 
+  function handlePage(event: { selected: number }) {
+    setPage(Math.ceil(event.selected + 1));
+  }
+
   const handleOption = useCallback((option: number) => {
     setCurrentOption(option);
   }, []);
 
-  const { data, isError } = useQuery({
-    queryKey: ['documents', searchTerm],
-    staleTime: 1000 * 60 * 60 * 5,
-    queryFn: () => documentsService.getByFilters(getURLQuery(), searchTerm),
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['documents', searchTerm, page],
+    staleTime: 1000 * 60 * 30,
+    queryFn: () =>
+      documentsService.getByFilters(getURLQuery(), searchTerm, page),
     enabled: !!searchTerm,
   });
 
@@ -48,5 +54,7 @@ export function useSearchController() {
     data,
     handleSearch,
     searchRef,
+    isLoading,
+    handlePage,
   };
 }

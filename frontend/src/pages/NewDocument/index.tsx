@@ -20,6 +20,7 @@ export default function NewDocument() {
     titleRef,
     handleSubmit,
     getErrorMessageByFieldName,
+    isPending,
   } = useNewDocumentController();
   return (
     <S.Container>
@@ -35,32 +36,35 @@ export default function NewDocument() {
       <S.Body>
         <S.Form onSubmit={(e) => e.preventDefault()}>
           <S.FormField>
-            <label>Título do Documento</label>
+            <label htmlFor="title">Título do Documento</label>
             <Input
+              id="title"
               ref={titleRef}
               placeholder="Insira o título do documento..."
             />
             <Error message={getErrorMessageByFieldName('title')} />
           </S.FormField>
           <S.FormField>
-            <label>Temas</label>
+            <label htmlFor="keywords">Temas</label>
             <Tags
               description="Separe os temas apertando enter ou vírgula."
               tags={keywords}
               setTags={setKeywords}
               placeholder="Ex: Segurança, Informação."
+              id={'keywords'}
             />
             <Error message={getErrorMessageByFieldName('keywords')} />
           </S.FormField>
           <S.FormField>
-            <label>Autores</label>
+            <label htmlFor="authors">Autores</label>
             <Tags
               description="Separe os autores apertando enter ou vírgula. Insira o nome completo em uma única tag."
               tags={authors}
               setTags={setAuthors}
               placeholder="Ex: João Paulo da Silva, Maria de Souza..."
+              id={'authors'}
             />
-            <Error message={getErrorMessageByFieldName('authors')} />
+            <Error message={getErrorMessageByFieldName('author')} />
           </S.FormField>
           <S.FormField>
             <label>Arquivo</label>
@@ -70,7 +74,9 @@ export default function NewDocument() {
               error={getErrorMessageByFieldName('file')}
             />
           </S.FormField>
-          <Button onClick={handleSubmit}>Enviar</Button>
+          <Button onClick={handleSubmit} loading={isPending}>
+            Enviar
+          </Button>
         </S.Form>
       </S.Body>
     </S.Container>

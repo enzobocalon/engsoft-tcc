@@ -1,13 +1,26 @@
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
+} from '@radix-ui/react-icons';
 import { Input } from '../Input';
 import * as S from './styles';
 import Select from '../Select';
 import SearchCard from '../SearchCard';
 import { useSearchController } from './useSearchController';
+import Spinner from '../Spinner';
+import ReactPaginate from 'react-paginate';
 
 export default function Search() {
-  const { data, handleSearch, currentOption, handleOption, searchRef } =
-    useSearchController();
+  const {
+    data,
+    handleSearch,
+    currentOption,
+    handleOption,
+    searchRef,
+    isLoading,
+    handlePage,
+  } = useSearchController();
   return (
     <S.Container>
       <S.SearchInputContainer>
@@ -24,7 +37,11 @@ export default function Search() {
 
       <S.SearchGroup>
         <p>Resultados</p>
-        {data ? (
+        {isLoading ? (
+          <S.SpinnerContainer>
+            <Spinner />
+          </S.SpinnerContainer>
+        ) : data ? (
           data.documents.length > 0 ? (
             data.documents.map((item) => (
               <SearchCard key={item.id} data={item} />
@@ -42,6 +59,18 @@ export default function Search() {
           </div>
         )}
       </S.SearchGroup>
+
+      {data?.pages.hasNext && (
+        <ReactPaginate
+          pageCount={Math.ceil(data?.pages.total || 1)}
+          breakLabel="..."
+          pageRangeDisplayed={3}
+          onClick={handlePage}
+          previousLabel={<ChevronLeftIcon />}
+          className="pagination"
+          nextLabel={<ChevronRightIcon />}
+        />
+      )}
     </S.Container>
   );
 }

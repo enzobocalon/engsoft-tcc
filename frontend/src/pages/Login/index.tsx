@@ -7,7 +7,7 @@ import * as S from './styles';
 import { useLoginController } from './useLoginController';
 
 export default function Login() {
-  const { errors, handleSubmit, register } = useLoginController();
+  const { errors, handleSubmit, register, isPending } = useLoginController();
   return (
     <S.Container>
       <img src={logo} />
@@ -28,7 +28,7 @@ export default function Login() {
           />
         </S.DataContainer>
         {errors.password && <Error message={errors.password.message} />}
-        <Button type="submit" onClick={handleSubmit}>
+        <Button type="submit" onClick={handleSubmit} loading={isPending}>
           Entrar
         </Button>
       </S.Form>

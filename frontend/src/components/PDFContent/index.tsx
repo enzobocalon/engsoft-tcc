@@ -10,7 +10,9 @@ export default function PDFContent() {
           <h2>{document.title}</h2>
 
           <p>
-            {document?.author?.map((item) => <p key={item.id}>{item.name}</p>)}
+            {document?.author?.map((item) => (
+              <strong key={item.id}>{item.name}</strong>
+            ))}
           </p>
           <iframe src={formatPath()} />
         </>
