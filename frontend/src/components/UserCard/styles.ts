@@ -11,4 +11,10 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
   }
+
+  @media (max-width: 425px) {
+    > span {
+      display: none;
+    }
+  }
 `;

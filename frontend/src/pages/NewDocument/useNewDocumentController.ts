@@ -55,8 +55,10 @@ export function useNewDocumentController() {
     if (!titleRef.current) return;
     const formData: { [key: string]: string | string[] | File | null } = {
       title: titleRef.current.value,
-      keywords: keywords.map((keyword) => keyword.value),
-      author: authors.map((author) => author.value),
+      keywords: keywords.map((keyword) =>
+        keyword.id.includes('_internal') ? keyword.name : keyword.id
+      ),
+      author: authors.map((author) => author.name),
       file: file,
     };
 

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
-export const DesktopMobileContainer = styled(motion.div)`
+export const DesktopMobileContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -40,7 +40,7 @@ export const CrossIconContainer = styled.div`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   width: 100%;
   background-color: ${({ theme }) => theme.blue.default};
   display: flex;

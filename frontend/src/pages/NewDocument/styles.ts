@@ -19,6 +19,12 @@ export const Header = styled.div`
   h1 {
     font-size: 24px;
   }
+
+  @media (max-width: 768px) {
+    & > h1 {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const ReturnContainer = styled.div`
@@ -30,6 +36,12 @@ export const ReturnContainer = styled.div`
   transition: all 0.3s ease;
   &:hover {
     color: ${({ theme }) => theme.blue.default};
+  }
+
+  @media (max-width: 768px) {
+    & > span {
+      display: none;
+    }
   }
 `;
 

@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import bg from '../../assets/images/s1.png';
 
 export const Container = styled.main`
   width: 100vw;
@@ -7,7 +8,10 @@ export const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.blue.default};
+  background-image: url(${bg});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
   img {
     width: 100%;

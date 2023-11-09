@@ -27,7 +27,7 @@ export default function NewDocument() {
       <S.Header>
         <S.ReturnContainer onClick={() => navigate('/')}>
           <DoubleArrowLeftIcon />
-          Voltar a página inicial
+          <span>Voltar a página inicial</span>
         </S.ReturnContainer>
         <h1>Adicionar Documentos</h1>
         <UserCard hideNew />
@@ -47,11 +47,12 @@ export default function NewDocument() {
           <S.FormField>
             <label htmlFor="keywords">Temas</label>
             <Tags
-              description="Separe os temas apertando enter ou vírgula."
+              description="Separe os temas apertando enter ou vírgula. Use as setas do teclado para navegar nas sugestões. "
               tags={keywords}
               setTags={setKeywords}
               placeholder="Ex: Segurança, Informação."
               id={'keywords'}
+              useAutoComplete
             />
             <Error message={getErrorMessageByFieldName('keywords')} />
           </S.FormField>
