@@ -10,11 +10,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  name      String?  @unique
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String?    @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Document  Document[]
 
   @@map("users")
 }
@@ -31,13 +32,33 @@ model Author {
 }
 
 model Document {
-  id        String   @id @default(uuid()) @db.Uuid
-  title     String
-  keywords  String[]
-  path      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    Author[]
+  id                String              @id @default(uuid()) @db.Uuid
+  title             String
+  path              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  author            Author[]
+  user              User                @relation(fields: [userId], references: [id])
+  userId            String              @db.Uuid
+  KeywordsDocuments KeywordsDocuments[]
 
   @@map("documents")
+}
+
+model Keywords {
+  id                String              @id @default(uuid()) @db.Uuid
+  name              String
+  KeywordsDocuments KeywordsDocuments[]
+
+  @@map("keywords")
+}
+
+model KeywordsDocuments {
+  documentId String   @db.Uuid @default(uuid())
+  keywordId  String   @db.Uuid @default(uuid())
+  document   Document @relation(fields: [documentId], references: [id])
+  keyword    Keywords @relation(fields: [keywordId], references: [id])
+
+  @@id([documentId, keywordId])
+  @@map("keywords_documents")
 }

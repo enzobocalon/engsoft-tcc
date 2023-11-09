@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   FileTypeValidator,
@@ -68,5 +69,12 @@ export class DocumentsController {
         : [(keywords as string).toLowerCase()]
       : [];
     return this.documentsService.getByFilter(keywordArray, author, page);
+  }
+
+  @IsPublic()
+  @Get('/keywords')
+  async listKeywords(@Query('q') q?: string) {
+    if (!q) throw new BadRequestException('Nenhuma query informada.');
+    return this.documentsService.getKeywords(q);
   }
 }
