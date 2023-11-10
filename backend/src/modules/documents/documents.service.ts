@@ -134,51 +134,65 @@ export class DocumentsService {
     });
   }
 
-  private async handleKeywords(keywords: string[], document: { id: string }) {
+  private isUUID(keyword: string): boolean {
+    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(
+      keyword,
+    );
+  }
+
+  private async getExistingKeywords(
+    keywordList: string[],
+  ): Promise<Map<string, string>> {
     const existingKeywords = await this.keywordsRepo.findMany({
       where: {
-        OR: keywords.map((keyword) => ({
-          name: {
-            equals: keyword,
-            mode: 'insensitive',
-          },
-        })),
+        name: {
+          in: keywordList,
+          mode: 'insensitive',
+        },
+      },
+      select: {
+        name: true,
+        id: true,
       },
     });
 
-    const keywordsMap = new Map<string, string>(
-      existingKeywords.map((keyword) => [
-        keyword.name.toLowerCase(),
-        keyword.id,
-      ]),
-    );
+    const keywordMap = new Map<string, string>();
+    existingKeywords.forEach((keyword) => {
+      keywordMap.set(keyword.name.toLowerCase(), keyword.id);
+    });
 
-    const newKeywords: { name: string }[] = [];
-    const createdKeywords: any[] = [];
+    return keywordMap;
+  }
+
+  private async createKeyword(keyword: string): Promise<string> {
+    const createdKeyword = await this.keywordsRepo.create({
+      data: {
+        name: keyword,
+      },
+    });
+    return createdKeyword.id;
+  }
+
+  private async handleKeywords(keywords: string[], document: { id: string }) {
+    const keywordsIds: string[] = [];
+
+    const existingKeywordMap = await this.getExistingKeywords(keywords);
 
     for (const keyword of keywords) {
-      const isUUID =
-        /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(
-          keyword,
-        );
+      const lowerCaseKeyword = keyword.toLowerCase();
 
-      if (!isUUID && !keywordsMap.has(keyword.toLowerCase())) {
-        newKeywords.push({ name: keyword });
+      if (this.isUUID(keyword)) {
+        keywordsIds.push(keyword);
+      } else if (existingKeywordMap.has(lowerCaseKeyword)) {
+        keywordsIds.push(existingKeywordMap.get(lowerCaseKeyword)!);
+      } else {
+        const createdKeywordId = await this.createKeyword(keyword);
+        keywordsIds.push(createdKeywordId);
       }
     }
 
-    for (const keywordData of newKeywords) {
-      const createdKeyword = await this.keywordsRepo.create({
-        data: keywordData,
-      });
-
-      createdKeywords.push(createdKeyword);
-    }
-
-    const allKeywords = [...existingKeywords, ...createdKeywords];
-
-    const keywordDocumentRelations = allKeywords.map((keyword) => ({
-      keywordId: keyword.id,
+    const keywordDocumentRelations = keywordsIds.map((keywordId) => ({
+      keywordId,
       documentId: document.id,
     }));
 
