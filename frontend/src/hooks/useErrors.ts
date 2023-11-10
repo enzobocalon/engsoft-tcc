@@ -31,10 +31,15 @@ export function useErrors() {
     [errors]
   );
 
+  const clearAllErrors = useCallback(() => {
+    setErrors([]);
+  }, []);
+
   return {
     errors,
     setError,
     removeError,
     getErrorMessageByFieldName,
+    clearAllErrors,
   };
 }

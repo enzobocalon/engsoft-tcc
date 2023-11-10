@@ -26,6 +26,7 @@ export default function useTagsController({
   const [keywords, setKeywords] = useState<ITags[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState<number>(-1);
   const isKeyReleased = useRef(true);
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value);
   }
@@ -39,6 +40,13 @@ export default function useTagsController({
   }
 
   function handleCloseKeywords() {
+    if (input.length > 0) {
+      setTags((prev) => [
+        ...prev,
+        { id: '_internal' + crypto.randomUUID(), name: input.trim() },
+      ]);
+      setInput('');
+    }
     setKeywords([]);
     setSelectedKeyword(-1);
   }

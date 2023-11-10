@@ -29,8 +29,13 @@ export function useNewDocumentController() {
   const [authors, setAuthors] = useState<ITags[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
-  const { errors, setError, removeError, getErrorMessageByFieldName } =
-    useErrors();
+  const {
+    errors,
+    setError,
+    removeError,
+    getErrorMessageByFieldName,
+    clearAllErrors,
+  } = useErrors();
 
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ['documents', 'create'],
@@ -64,12 +69,9 @@ export function useNewDocumentController() {
 
     try {
       schema.parse(formData);
+      // Se chegou aqui é porque o zod não encontrou erros, limpa por via das dúvidas.
+      clearAllErrors();
 
-      const isFormValid = errors.length === 0;
-      if (!isFormValid) {
-        toast.error('O formulário contém erros');
-        return;
-      }
       const form = new FormData();
 
       for (const key in formData) {
@@ -86,6 +88,7 @@ export function useNewDocumentController() {
     } catch (error) {
       const fieldErrors: { [key: string]: string } = {};
       if (error instanceof z.ZodError) {
+        toast.error('O formulário contem erros.');
         console.log(error);
         // Extrai erros de cada campo gerado pelo Zod
         error.errors.forEach((err) => {
@@ -99,8 +102,9 @@ export function useNewDocumentController() {
         setError({ field, message: fieldErrors[field] });
       });
       // Lida com os erros já resolvidos
+      const remainingFields = new Set(Object.keys(fieldErrors));
       errors.forEach((currentError) => {
-        if (!fieldErrors[currentError.field]) {
+        if (!remainingFields.has(currentError.field)) {
           removeError(currentError.field);
         }
       });

@@ -35,7 +35,7 @@ export function useSearchController() {
 
   const { data, isError, isLoading } = useQuery({
     queryKey: ['documents', searchTerm, page],
-    staleTime: 1000 * 60 * 30,
+    staleTime: 0,
     queryFn: () =>
       documentsService.getByFilters(getURLQuery(), searchTerm, page),
     enabled: !!searchTerm,
