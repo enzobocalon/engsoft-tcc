@@ -40,13 +40,6 @@ export default function useTagsController({
   }
 
   function handleCloseKeywords() {
-    if (input.length > 0) {
-      setTags((prev) => [
-        ...prev,
-        { id: '_internal' + crypto.randomUUID(), name: input.trim() },
-      ]);
-      setInput('');
-    }
     setKeywords([]);
     setSelectedKeyword(-1);
   }
