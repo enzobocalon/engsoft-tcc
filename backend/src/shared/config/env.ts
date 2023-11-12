@@ -1,5 +1,12 @@
 import { plainToInstance } from 'class-transformer';
-import { IsNotEmpty, IsString, NotEquals, validateSync } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  NotEquals,
+  validateSync,
+} from 'class-validator';
 
 class Env {
   @IsString()
@@ -10,6 +17,10 @@ class Env {
   @IsNotEmpty()
   @NotEquals('unsecure_jwt_secret')
   jwtSecret: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isDev: boolean;
 }
 
 export const env: Env = plainToInstance(Env, {
