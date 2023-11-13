@@ -1,12 +1,16 @@
 import { styled } from 'styled-components';
 
-const StyledSpinner = styled.svg`
+interface SpinnerProps {
+  stroke?: string;
+}
+
+const StyledSpinner = styled.svg<SpinnerProps>`
   animation: rotate 2s linear infinite;
   width: 2rem;
   height: 2rem;
 
   & .path {
-    stroke: ${({ theme }) => theme.blue.default};
+    stroke: ${({ theme, stroke }) => stroke || theme.blue.default};
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
@@ -32,8 +36,8 @@ const StyledSpinner = styled.svg`
   }
 `;
 
-const Spinner = () => (
-  <StyledSpinner viewBox="0 0 50 50">
+const Spinner = ({ stroke }: SpinnerProps) => (
+  <StyledSpinner viewBox="0 0 50 50" stroke={stroke}>
     <circle
       className="path"
       cx="25"

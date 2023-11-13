@@ -23,11 +23,11 @@ function App() {
         <AuthProvider>
           <DocumentProvider>
             <Router />
-            <GlobalStyle />
           </DocumentProvider>
         </AuthProvider>
         <Toaster />
       </QueryClientProvider>
+      <GlobalStyle />
     </ThemeProvider>
   );
 }

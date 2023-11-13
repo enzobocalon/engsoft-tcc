@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { localStorageKeys } from '../config/localStorageKeys';
 import { usersService } from '../services/users';
 import { IUser } from '../types/User';
+import LaunchScreen from '../components/LaunchScreen';
 
 interface AuthContextValue {
   signedIn: boolean;
@@ -63,6 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user: data && signedIn ? data : null,
       }}
     >
+      <LaunchScreen isLoading={isFetching} />
       {!isFetching && children}
     </AuthContext.Provider>
   );
