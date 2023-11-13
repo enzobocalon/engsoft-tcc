@@ -8,4 +8,5 @@ export interface IDocument {
   author: (IUser & {
     documentId: string;
   })[];
+  isS3?: boolean;
 }

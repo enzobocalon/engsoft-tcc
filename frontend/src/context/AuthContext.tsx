@@ -63,8 +63,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user: data && signedIn ? data : null,
       }}
     >
-      {/* <LaunchScreen isLoading={isFetching} /> */}
-
       {!isFetching && children}
     </AuthContext.Provider>
   );
