@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   flex: 1;
   position: relative;
+  overflow: hidden;
 
   & > .pagination {
     display: flex;
@@ -70,14 +71,39 @@ export const SearchGroup = styled.div`
   height: 100%;
   flex: 1;
   margin-top: 1rem;
+  max-height: 820px;
   border-radius: 0.25rem;
   background-color: ${({ theme }) => theme.white.dark};
   padding: 1rem;
   font-weight: 500;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: #b8c0c4;
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #adb1b3;
+  }
 
   > .errorsContainer {
     display: flex;
-    height: 100%;
+    flex: 1;
     align-items: center;
     justify-content: center;
   }

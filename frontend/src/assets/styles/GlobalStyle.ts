@@ -13,5 +13,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.white.dark};
+    overflow: hidden;
   }
 `;
