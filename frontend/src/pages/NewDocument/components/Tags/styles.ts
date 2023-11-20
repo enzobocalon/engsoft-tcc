@@ -60,7 +60,8 @@ export const FoundKeywords = styled.div`
   width: 100%;
   border: 1px solid #d1d1d1;
   background-color: white;
-  top: 3.5rem;
+  top: 100%;
+  transform: translateY(10px);
   left: 0;
   padding: 1rem;
   z-index: 100;
