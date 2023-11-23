@@ -71,7 +71,7 @@ export const SearchGroup = styled.div`
   height: 100%;
   flex: 1;
   margin-top: 1rem;
-  max-height: 820px;
+  max-height: calc(100vh - calc(87px + 70px));
   border-radius: 0.25rem;
   background-color: ${({ theme }) => theme.white.dark};
   padding: 1rem;
